@@ -5,28 +5,36 @@ const CardForm = ({ card, onSave }) => {
   const [frontText, setFrontText] = useState('');
   const [backText, setBackText] = useState('');
 
+   // Function to fetch the list of cards from the API
+   const fetchCards = async () => {
+    try {
+      const response = await axios.get('https://tuf-project.onrender.com/api/cards');
+      setCards(response.data);
+    } catch (error) {
+      console.error('Error fetching cards:', error);
+    }
+  };
+
   useEffect(() => {
     if (card) {
       setFrontText(card.frontText);
       setBackText(card.backText);
-    } else {
-      // Clear form if no card is provided
-      setFrontText('');
-      setBackText('');
     }
   }, [card]);
+
+  useEffect(() => {
+    fetchCards();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (card) {
-        // Update existing card
         await axios.put(`https://tuf-project.onrender.com/api/cards/${card.id}`, { frontText, backText });
       } else {
-        // Add new card
         await axios.post('https://tuf-project.onrender.com/api/cards', { frontText, backText });
       }
-      onSave(); // Callback to refetch data or update UI
+      onSave();
     } catch (error) {
       console.error('Error saving card:', error);
     }
