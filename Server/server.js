@@ -7,9 +7,18 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const cors = require('cors');
-app.use(cors());
+const corsOptions = {
+  origin: [
+    'https://tuf-project.vercel.app',
+    'https://tuf-project-igx2.vercel.app'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  credentials: true, 
+};
 
-app.use(bodyParser.json()); // Middleware to parse JSON request bodies
+app.use(cors(corsOptions));
+
+app.use(bodyParser.json()); 
 
 // Use the cards routes
 app.use('/api/cards', cardsRouter);

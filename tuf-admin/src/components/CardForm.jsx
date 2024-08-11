@@ -16,9 +16,9 @@ const CardForm = ({ card, onSave }) => {
     e.preventDefault();
     try {
       if (card) {
-        await axios.put(`http://localhost:5000/api/cards/${card.id}`, { frontText, backText });
+        await axios.put(`https://tuf-project.onrender.com/api/cards/${card.id}`, { frontText, backText });
       } else {
-        await axios.post('http://localhost:5000/api/cards', { frontText, backText });
+        await axios.post('https://tuf-project.onrender.com/api/cards', { frontText, backText });
       }
       onSave();
     } catch (error) {

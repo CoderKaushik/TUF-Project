@@ -11,7 +11,7 @@ const Home = () => {
     // Fetch cards from the server
     const fetchCards = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/api/cards');
+          const response = await axios.get('https://tuf-project.onrender.com/api/cards');
           setCards(response.data);
         } catch (error) {
           console.error('Error fetching cards:', error);

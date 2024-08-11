@@ -7,7 +7,7 @@ const CardList = ({ onEdit }) => {
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/cards');
+        const response = await axios.get('https://tuf-project.onrender.com/api/cards');
         setCards(response.data);
       } catch (error) {
         console.error('Error fetching cards:', error);
@@ -19,7 +19,7 @@ const CardList = ({ onEdit }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/cards/${id}`);
+      await axios.delete(`https://tuf-project.onrender.com/api/cards/${id}`);
       setCards(cards.filter(card => card.id !== id));
     } catch (error) {
       console.error('Error deleting card:', error);
