@@ -9,6 +9,10 @@ const CardForm = ({ card, onSave }) => {
     if (card) {
       setFrontText(card.frontText);
       setBackText(card.backText);
+    } else {
+      // Clear form if no card is provided
+      setFrontText('');
+      setBackText('');
     }
   }, [card]);
 
@@ -16,11 +20,13 @@ const CardForm = ({ card, onSave }) => {
     e.preventDefault();
     try {
       if (card) {
+        // Update existing card
         await axios.put(`https://tuf-project.onrender.com/api/cards/${card.id}`, { frontText, backText });
       } else {
+        // Add new card
         await axios.post('https://tuf-project.onrender.com/api/cards', { frontText, backText });
       }
-      onSave();
+      onSave(); // Callback to refetch data or update UI
     } catch (error) {
       console.error('Error saving card:', error);
     }
