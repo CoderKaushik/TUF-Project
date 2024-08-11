@@ -4,23 +4,27 @@ import axios from 'axios';
 const CardList = ({ onEdit }) => {
   const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const response = await axios.get('https://tuf-project.onrender.com/api/cards');
-        setCards(response.data);
-      } catch (error) {
-        console.error('Error fetching cards:', error);
-      }
-    };
+  // Function to fetch the list of cards from the API
+  const fetchCards = async () => {
+    try {
+      const response = await axios.get('https://tuf-project.onrender.com/api/cards');
+      setCards(response.data);
+    } catch (error) {
+      console.error('Error fetching cards:', error);
+    }
+  };
 
+  // Fetch cards when the component mounts
+  useEffect(() => {
     fetchCards();
   }, []);
 
+  // Handle card deletion
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://tuf-project.onrender.com/api/cards/${id}`);
-      setCards(cards.filter(card => card.id !== id));
+      // Fetch cards again after deletion
+      fetchCards();
     } catch (error) {
       console.error('Error deleting card:', error);
     }
