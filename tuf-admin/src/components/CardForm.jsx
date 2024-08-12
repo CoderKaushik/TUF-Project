@@ -35,6 +35,7 @@ const CardForm = ({ card, onSave }) => {
         await axios.post('https://tuf-project.onrender.com/api/cards', { frontText, backText });
       }
       onSave();
+      fetchCards();
     } catch (error) {
       console.error('Error saving card:', error);
     }
