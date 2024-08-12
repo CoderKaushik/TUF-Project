@@ -32,7 +32,7 @@ const CardList = ({ onEdit }) => {
 
 
   return (
-    <div className="p-4">
+    <div className="p-1">
       <h2 className="text-2xl font-bold mb-4">Card List</h2>
       <ul className="space-y-2">
         {cards.map(card => (
