@@ -9,8 +9,22 @@ const AdminPanel = () => {
     setSelectedCard(card);
   };
 
+  const fetchCards = async () => {
+    try {
+      const response = await axios.get('https://tuf-project.onrender.com/api/cards');
+      setCards(response.data);
+    } catch (error) {
+      console.error('Error fetching cards:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCards();
+  }, []);
+
   const handleSave = () => {
     setSelectedCard(null);
+    fetchCards();
   };
 
   return (

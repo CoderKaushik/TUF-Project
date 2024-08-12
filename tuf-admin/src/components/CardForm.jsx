@@ -5,16 +5,6 @@ const CardForm = ({ card, onSave }) => {
   const [frontText, setFrontText] = useState('');
   const [backText, setBackText] = useState('');
 
-   // Function to fetch the list of cards from the API
-   const fetchCards = async () => {
-    try {
-      const response = await axios.get('https://tuf-project.onrender.com/api/cards');
-      setCards(response.data);
-    } catch (error) {
-      console.error('Error fetching cards:', error);
-    }
-  };
-
   useEffect(() => {
     if (card) {
       setFrontText(card.frontText);
@@ -22,19 +12,13 @@ const CardForm = ({ card, onSave }) => {
     }
   }, [card]);
 
-  useEffect(() => {
-    fetchCards();
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (card) {
         await axios.put(`https://tuf-project.onrender.com/api/cards/${card.id}`, { frontText, backText });
-        fetchCards();
       } else {
         await axios.post('https://tuf-project.onrender.com/api/cards', { frontText, backText });
-        fetchCards();
       }
       onSave();
     } catch (error) {
